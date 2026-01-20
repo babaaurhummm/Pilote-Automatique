@@ -1,10 +1,8 @@
 #ifndef GPS_H
 #define GPS_H
 
-struct GPScoord {
-    float lat;
-    float lng;
-};
+#include <Adafruit_GPS.h>
+#include "CONFIG.h"
 
 class GPS {
 public:
@@ -13,6 +11,7 @@ public:
     void update();
     GPScoord get_point();
 private:
+    Adafruit_GPS gps;
     GPScoord point;
 };
 

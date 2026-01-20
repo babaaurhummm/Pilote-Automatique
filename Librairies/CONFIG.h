@@ -3,6 +3,13 @@
 
 #include <Arduino.h>
 
+struct GPScoord {
+    float lat;
+    float lng;
+};
+
+constexpr GPScoord GPS_ORIGIN = {0.0f, 0.0f};
+
 constexpr int PIN_COM_RUDDER = 2;
 constexpr int PIN_MODE_CONTROL = 3;
 
