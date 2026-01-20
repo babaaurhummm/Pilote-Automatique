@@ -6,6 +6,7 @@
 #include "WINDSENSOR.h"
 #include "DATA.h"
 #include "CONFIG.h"
+#include <Arduino_RouterBridge.h>
 
 COM com;
 IMU imu;
@@ -17,6 +18,7 @@ DATA data;
 
 
 void setup() {
+  Bridge.begin();
   com.init();
   imu.init();
   gps.init();
