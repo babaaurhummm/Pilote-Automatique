@@ -16,12 +16,13 @@ void DATA::save_data(unsigned long timestamp,
                      float awa,
                      float filtered_awa,
                      bool unmanned_status) {
-    (void)timestamp;
-    (void)latitude;
-    (void)longitude;
-    (void)heading;
-    (void)rudder_angle;
-    (void)awa;
-    (void)filtered_awa;
-    (void)unmanned_status;
+    Bridge.notify("log_data",
+                  timestamp,
+                  latitude,
+                  longitude,
+                  heading,
+                  rudder_angle,
+                  awa,
+                  filtered_awa,
+                  unmanned_status);
 }
