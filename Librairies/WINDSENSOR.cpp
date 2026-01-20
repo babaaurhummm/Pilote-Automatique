@@ -12,14 +12,12 @@ WINDSENSOR::WINDSENSOR() {
 
 void WINDSENSOR::init() {
     Monitor.println("Initializating WindSensor (20 sec max)");
-    Monitor.println("--> Put the WindSensor in motion")
+    Monitor.println("--> Put the WindSensor in motion");
     
     unsigned long startTime = millis();
 
     while (millis() - startTime < 20000) { //20sec
         Monitor.println(analogRead(PIN_WINDSENSOR));
-        }
-
         delay(50); // lecture toutes les 50 ms
     }
 

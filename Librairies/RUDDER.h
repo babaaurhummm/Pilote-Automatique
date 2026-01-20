@@ -2,9 +2,7 @@
 #define RUDDER_H
 
 #include <Arduino.h>
-#include <Wire.h>
-#include <Adafruit_PWMServoDriver.h>
-#include "config.h"
+#include "CONFIG.h"
 
 class RUDDER {
 public:
@@ -14,7 +12,7 @@ public:
     void set_rudder_angle(int angle);
     float get_rudder_angle();
 private:
-    float angle_rudder;
+    float rudder_angle;
     int ADC_rudder_value;
     float k;
     void test_rudder_servo();
