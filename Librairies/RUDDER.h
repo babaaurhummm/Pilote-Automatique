@@ -1,9 +1,6 @@
 #ifndef RUDDER_H
 #define RUDDER_H
 
-#include <Arduino.h>
-#include "CONFIG.h"
-
 class RUDDER {
 public:
     RUDDER();

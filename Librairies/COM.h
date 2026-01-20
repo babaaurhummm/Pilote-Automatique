@@ -1,9 +1,6 @@
 #ifndef COM_H
 #define COM_H
 
-#include <Arduino.h>
-#include "CONFIG.h"
-
 class COM {
 public:
     COM();
