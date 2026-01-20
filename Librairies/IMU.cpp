@@ -11,7 +11,8 @@ IMU::IMU() {
 bool IMU::init() {
     Monitor.println("Initializating IMU (BNO085)");
 
-    if (!bno08x.begin_I2C()) {
+    Wire1.begin();
+    if (!bno08x.begin_I2C(&Wire1)) {
         Monitor.println("BNO085 non detecte");
         configured = false;
         return false;
