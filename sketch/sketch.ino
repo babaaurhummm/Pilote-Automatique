@@ -1,7 +1,6 @@
 #include "COM.h"
 #include "IMU.h"
 #include "GPS.h"
-#include "PILOTE.h"
 #include "RUDDER.h"
 #include "WINDSENSOR.h"
 #include "DATA.h"
@@ -11,11 +10,24 @@
 COM com;
 IMU imu;
 GPS gps;
-PILOTE pilote;
 RUDDER rudder;
 WINDSENSOR windsensor;
 DATA data;
 
+
+#if full_unmanned_mode
+
+void setup() {
+  Bridge.begin();
+  com.init();
+  rudder.init();
+}
+
+void loop() {
+  rudder.set_rudder_angle(rudder_angle_set_value());
+}
+
+#else
 
 void setup() {
   Bridge.begin();
@@ -31,14 +43,16 @@ void loop() {
   
   update();
   save_data();
+  
   if (com.is_unmanned())
   {
-    rudder.set_rudder_angle(pilote.rudder_angle_set_value());
+    rudder.set_rudder_angle(rudder_angle_set_value());
   }
   else
   {
     rudder.set_rudder_angle(com.get_com_rudder());
   }
+
 }
 
 void update() {
@@ -58,3 +72,26 @@ void save_data() {
   bool unmanned_status = com.is_unmanned();
   data.save_data(millis(), point.lat, point.lng, heading, r_angle, awa, f_awa, unmanned_status);
 }
+
+#if awa_follow_mode
+
+int rudder_angle_set_value(int awa_sp) {
+  const float awa = windsensor.get_filtered_awa();
+  const float heading = imu.get_heading();
+  const float heading_sp = awa_sp - awa + heading ;
+  const float e = heading_sp - heading ;
+  return Kp*e;
+  
+}
+
+#else
+
+int rudder_angle_set_value(int heading_sp) {
+  const float heading = imu.get_heading();
+  const float e = heading_sp - heading ;
+  return Kp*e;
+}
+
+#endif
+
+#endif

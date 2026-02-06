@@ -73,6 +73,4 @@ def loop():
     """This function is called repeatedly by the App framework."""
     time.sleep(1)
 
-
-# See: https://docs.arduino.cc/software/app-lab/tutorials/getting-started/#app-run
 App.run(user_loop=loop)
