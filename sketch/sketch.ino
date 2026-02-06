@@ -24,7 +24,7 @@ void setup() {
 }
 
 void loop() {
-  rudder.set_rudder_angle(rudder_angle_set_value());
+  rudder.set_rudder_angle(com.get_com_rudder());
 }
 
 #else
@@ -46,7 +46,11 @@ void loop() {
   
   if (com.is_unmanned())
   {
-    rudder.set_rudder_angle(rudder_angle_set_value());
+    #if awa_follow_mode
+    rudder.set_rudder_angle(rudder_angle_sp(awa_sp));
+    #else
+    rudder.set_rudder_angle(rudder_angle_sp(heading_sp))) ;
+    #endif
   }
   else
   {
@@ -75,7 +79,7 @@ void save_data() {
 
 #if awa_follow_mode
 
-int rudder_angle_set_value(int awa_sp) {
+int rudder_angle_sp(int awa_sp) {
   const float awa = windsensor.get_filtered_awa();
   const float heading = imu.get_heading();
   const float heading_sp = awa_sp - awa + heading ;
@@ -86,7 +90,7 @@ int rudder_angle_set_value(int awa_sp) {
 
 #else
 
-int rudder_angle_set_value(int heading_sp) {
+int rudder_angle_sp(int heading_sp) {
   const float heading = imu.get_heading();
   const float e = heading_sp - heading ;
   return Kp*e;

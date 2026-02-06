@@ -33,8 +33,8 @@ constexpr float Kp = 1.0f;
 constexpr bool full_unmanned_mode = false ;
 constexpr bool awa_follow_mode = false; //true : suivi de d'allure ; false : suivi de cap
 
-constinit bool heading_sp = 0.0f ;
-constinit bool awa_sp = 0.0f ;
+constinit float heading_sp = 0.0f ;
+constinit float awa_sp = 0.0f ;
 
 
 #endif
